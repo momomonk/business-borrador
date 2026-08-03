@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { UserRepository } from '../../../domain/repositories/user.repository';
-import { User } from '../../../domain/entities/user.entity';
+import { UserRepository } from '../../../domain/repositories/business.repository';
+import { User } from '../../../domain/entities/business.entity';
 import { UserOrmEntity } from '../entities-orm/user.orm-entity';
 import { PaginatedResult } from '../../../common/pagination';
 
@@ -71,6 +71,10 @@ export class UserRepositoryImpl implements UserRepository {
 
   async updateStatus(id: string, status: boolean): Promise<void> {
     await this.repo.update(id, { is_active: status });
+  }
+
+  async updateName(id: string, name: string): Promise<void> {
+    await this.repo.update(id, { name });
   }
 
   async update(id: string, user: User): Promise<void> {

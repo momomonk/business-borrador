@@ -1,4 +1,4 @@
-import { User } from '../entities/user.entity';
+import { User } from '../entities/business.entity';
 import { PaginatedResult } from '../../common/pagination';
 
 export interface UserRepository {
@@ -6,6 +6,7 @@ export interface UserRepository {
   save(user: User): Promise<User>;
   findById(id: string): Promise<User | null>;
   updateStatus(id: string, status: boolean): Promise<void>;
+  updateName(id: string, name: string): Promise<void>;
   findByEmail(slug: string): Promise<boolean>;
   update(id: string, user: User): Promise<void>;
 }

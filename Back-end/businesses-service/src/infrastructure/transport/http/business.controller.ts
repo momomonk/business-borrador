@@ -1,12 +1,14 @@
 import { Controller, Get, Post, Patch, Put, Param, Body, Query, UsePipes, ValidationPipe } from '@nestjs/common';
-import { ListUsersUseCase } from '../../../application/use-cases/list-users.use-case';
-import { CreateUserUseCase } from '../../../application/use-cases/create-user.use-case';
-import { ChangeUserStatusUseCase } from '../../../application/use-cases/change-user-status.use-case';
-import { UpdateUserUseCase } from '../../../application/use-cases/update-user.use-case';
-import { CreateUserDto } from './dto/create-user.dto';
+import { ListUsersUseCase } from '../../../application/use-cases/list-business.use-case';
+import { CreateUserUseCase } from '../../../application/use-cases/create-business.use-case';
+import { ChangeUserStatusUseCase } from '../../../application/use-cases/change-business-status.use-case';
+import { ChangeUserNameUseCase } from 'src/application/use-cases/change-business-name.use-case';
+import { UpdateUserUseCase } from '../../../application/use-cases/update-business.use-case';
+import { CreateUserDto } from './dto/create-business.dto';
 import { PaginationDto } from './dto/pagination.dto';
-import { UpdateStatusDto } from './dto/change-user-status.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { UpdateStatusDto } from './dto/change-business-status.dto';
+import { UpdateNameDto } from './dto/change-business-name.dto';
+import { UpdateUserDto } from './dto/update-business.dto';
 import { IdParamDto } from './dto/id-param.dto';
 
 @Controller('businesses')
@@ -15,6 +17,7 @@ export class UserController {
     private readonly listUsers: ListUsersUseCase,
     private readonly createUser: CreateUserUseCase,
     private readonly changeUserStatus: ChangeUserStatusUseCase,
+    private readonly changeUserName: ChangeUserNameUseCase,
     private readonly updateUser: UpdateUserUseCase,
   ) {}
 
@@ -38,6 +41,16 @@ export class UserController {
   ) {
     return await this.changeUserStatus.execute(id, updateStatusDto.status);
   }
+
+  @Patch(':id/name')
+  @UsePipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
+  async changeName(
+    @Param('id') id: string,
+    @Body() updateNameDto: UpdateNameDto
+  ) {
+    return await this.changeUserName.execute(id, updateNameDto.name);
+  }
+
   @Put(':id')
   async update(
     @Param() params: IdParamDto,

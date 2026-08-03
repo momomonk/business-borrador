@@ -1,7 +1,7 @@
 import { Injectable, Inject, BadRequestException } from '@nestjs/common';
-import { UserRepository } from '../../domain/repositories/user.repository';
-import { User } from '../../domain/entities/user.entity';
-import { CreateUserDto } from '../../infrastructure/transport/http/dto/create-user.dto';
+import { UserRepository } from '../../domain/repositories/business.repository';
+import { User } from '../../domain/entities/business.entity';
+import { CreateUserDto } from '../../infrastructure/transport/http/dto/create-business.dto';
 import { ErrorMessages } from '../../common/constants/error-messages';
 
 @Injectable()
