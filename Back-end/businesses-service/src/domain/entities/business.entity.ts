@@ -1,13 +1,11 @@
-import { Exclude } from 'class-transformer';
-
-export class User {
+export class Business {
   public readonly id: string;
   public readonly name: string;
   public readonly slug: string;
   public readonly created_at: Date;
   public is_active: boolean;
 
-  constructor(partial: Partial<User>) {
+  constructor(partial: Partial<Business>) {
     Object.assign(this, partial);
   }
 
@@ -17,7 +15,7 @@ export class User {
 
   changeStatus(status: boolean): void {
     if (this.is_active === status) {
-      throw new Error(`User is already ${status ? 'active' : 'inactive'}`);
+      throw new Error(`Business is already ${status ? 'active' : 'inactive'}`);
     }
     this.is_active = status;
   }

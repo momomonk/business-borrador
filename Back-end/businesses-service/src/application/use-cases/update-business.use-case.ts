@@ -1,25 +1,25 @@
 import { Injectable, Inject, BadRequestException } from '@nestjs/common';
-import { UserRepository } from '../../domain/repositories/business.repository';
-import { User } from '../../domain/entities/business.entity';
-import { UpdateUserDto } from '../../infrastructure/transport/http/dto/update-business.dto';
+import { BusinessRepository } from '../../domain/repositories/business.repository';
+import { Business } from '../../domain/entities/business.entity';
+import { UpdateBusinessDto } from '../../infrastructure/transport/http/dto/update-business.dto';
 import { ErrorMessages } from '../../common/constants/error-messages';
 
 @Injectable()
-export class UpdateUserUseCase {
-  constructor(@Inject('UserRepository') private readonly repo: UserRepository) {}
+export class UpdateBusinessUseCase {
+  constructor(@Inject('BusinessRepository') private readonly repo: BusinessRepository) {}
 
-  async execute(dto: UpdateUserDto, id: string) {
-    const userAvailable = await this.repo.findById(id);
-    if(!userAvailable) throw new BadRequestException(ErrorMessages.USER_NOT_FOUND);
+  async execute(dto: UpdateBusinessDto, id: string) {
+    const businessAvailable = await this.repo.findById(id);
+    if(!businessAvailable) throw new BadRequestException(ErrorMessages.BUSINESS_NOT_FOUND);
 
-    const slugAvailable = await this.repo.findByEmail(dto.slug);
-    if(slugAvailable) throw new BadRequestException(ErrorMessages.EMAIL_EXISTS);
+    const slugAvailable = await this.repo.findBySlug(dto.slug);
+    if(slugAvailable) throw new BadRequestException(ErrorMessages.SLUG_EXISTS);
 
-    const updateUser = new User({
+    const updateBusiness = new Business({
       name: dto.name,
       slug: dto.slug,
     });
 
-    return await this.repo.update(id, updateUser);
+    return await this.repo.update(id, updateBusiness);
   }
 }

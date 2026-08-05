@@ -1,4 +1,5 @@
 export const ErrorMessages = {
-    EMAIL_EXISTS: 'That slug is already in use',
-    USER_NOT_FOUND: 'User not found in DB',
+    SLUG_EXISTS: 'That Slug is already in use',
+    BUSINESS_NOT_FOUND: 'Business not found in DB',
+    BUSINESS_SETTINGS_NOT_FOUND: 'Business settings Id already taken',
 } as const; 

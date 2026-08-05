@@ -1,21 +1,21 @@
 import { Injectable, Inject, BadRequestException } from '@nestjs/common';
-import { UserRepository } from '../../domain/repositories/business.repository';
-import { User } from '../../domain/entities/business.entity';
-import { CreateUserDto } from '../../infrastructure/transport/http/dto/create-business.dto';
+import { BusinessRepository } from '../../domain/repositories/business.repository';
+import { Business } from '../../domain/entities/business.entity';
+import { CreateBusinessDto } from '../../infrastructure/transport/http/dto/create-business.dto';
 import { ErrorMessages } from '../../common/constants/error-messages';
 
 @Injectable()
-export class CreateUserUseCase {
-  constructor(@Inject('UserRepository') private readonly repo: UserRepository) {}
+export class CreateBusinessUseCase {
+  constructor(@Inject('BusinessRepository') private readonly repo: BusinessRepository) {}
 
-  async execute(dto: CreateUserDto) {
-    const userAvailable = await this.repo.findByEmail(dto.slug);
-    if(userAvailable) throw new BadRequestException(ErrorMessages.EMAIL_EXISTS);
-    const newUser = new User({
+  async execute(dto: CreateBusinessDto) {
+    const businessAvailable = await this.repo.findBySlug(dto.slug);
+    if(businessAvailable) throw new BadRequestException(ErrorMessages.SLUG_EXISTS);
+    const newBusiness = new Business({
       name: dto.name,
       slug: dto.slug,
     });
 
-    return await this.repo.save(newUser);
+    return await this.repo.save(newBusiness);
   }
 }

@@ -1,29 +1,39 @@
 import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { typeOrmConfig } from './infrastructure/persistence/typeorm.config'; 
-import { UserController } from './infrastructure/transport/http/business.controller';
-import { ListUsersUseCase } from './application/use-cases/list-business.use-case';
-import { CreateUserUseCase } from './application/use-cases/create-business.use-case';
-import { UpdateUserUseCase } from './application/use-cases/update-business.use-case';
-import { ChangeUserStatusUseCase } from './application/use-cases/change-business-status.use-case';
-import { ChangeUserNameUseCase } from './application/use-cases/change-business-name.use-case';
-import { UserRepositoryImpl } from './infrastructure/persistence/repositories/user.repository.impl';
-import { UserOrmEntity } from './infrastructure/persistence/entities-orm/user.orm-entity';
+import { BusinessController } from './infrastructure/transport/http/business.controller';
+import { BusinessSettingsController } from './infrastructure/transport/http/business-settings.controller';
+import { ListBusinessUseCase } from './application/use-cases/list-business.use-case';
+import { CreateBusinessUseCase } from './application/use-cases/create-business.use-case';
+import { UpdateBusinessUseCase } from './application/use-cases/update-business.use-case';
+import { ChangeBusinessStatusUseCase } from './application/use-cases/change-business-status.use-case';
+import { ChangeBusinessNameUseCase } from './application/use-cases/change-business-name.use-case';
+import { ListBusinessSettingsUseCase } from './application/use-cases/list-business-settings.use-case';
+import { CreateBusinessSettingsUseCase } from './application/use-cases/create-business-settings.use-case';
+import { UpdateBusinessSettingsUseCase } from './application/use-cases/update-business-settings.use-case';
+import { BusinessRepositoryImpl } from './infrastructure/persistence/repositories/business.repository.impl';
+import { BusinessSettingsRepositoryImpl } from './infrastructure/persistence/repositories/business-settings.repository.impl';
+import { BusinessOrmEntity } from './infrastructure/persistence/entities-orm/business.orm-entity';
+import { BusinessSettingsOrmEntity } from './infrastructure/persistence/entities-orm/business-settings.orm-entity';
 import { LoggerMiddleware } from './common/middleware/logger.middleware';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot(typeOrmConfig), // Pasamos la config externa
-    TypeOrmModule.forFeature([UserOrmEntity]),
+    TypeOrmModule.forRoot(typeOrmConfig),
+    TypeOrmModule.forFeature([BusinessOrmEntity, BusinessSettingsOrmEntity]),
   ],
-  controllers: [UserController],
+  controllers: [BusinessController, BusinessSettingsController],
   providers: [
-    ListUsersUseCase,
-    CreateUserUseCase,
-    UpdateUserUseCase,
-    ChangeUserNameUseCase,
-    ChangeUserStatusUseCase,
-    { provide: 'UserRepository', useClass: UserRepositoryImpl },
+    ListBusinessUseCase,
+    CreateBusinessUseCase,
+    UpdateBusinessUseCase,
+    ChangeBusinessNameUseCase,
+    ChangeBusinessStatusUseCase,
+    { provide: 'BusinessRepository', useClass: BusinessRepositoryImpl },
+    ListBusinessSettingsUseCase,
+    CreateBusinessSettingsUseCase,
+    UpdateBusinessSettingsUseCase,
+    { provide: 'BusinessSettingsRepository', useClass: BusinessSettingsRepositoryImpl },
   ],
 })
 export class AppModule implements NestModule {

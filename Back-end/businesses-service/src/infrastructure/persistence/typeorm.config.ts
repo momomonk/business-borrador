@@ -1,5 +1,5 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { UserOrmEntity } from './entities-orm/user.orm-entity';
+import { BusinessOrmEntity } from './entities-orm/business.orm-entity';
 
 export const typeOrmConfig: TypeOrmModuleOptions = {
   type: 'postgres',
@@ -8,6 +8,6 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
   username: process.env.DB_USER || 'postgres',
   password: process.env.DB_PASSWORD || 'root',
   database: process.env.DB_NAME || 'ecommerce',
-  entities: [UserOrmEntity],
+  entities: [BusinessOrmEntity],
   synchronize: true,
 };

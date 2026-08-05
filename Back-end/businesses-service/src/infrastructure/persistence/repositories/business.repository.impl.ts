@@ -1,22 +1,22 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { UserRepository } from '../../../domain/repositories/business.repository';
-import { User } from '../../../domain/entities/business.entity';
-import { UserOrmEntity } from '../entities-orm/user.orm-entity';
+import { BusinessRepository } from '../../../domain/repositories/business.repository';
+import { Business } from '../../../domain/entities/business.entity';
+import { BusinessOrmEntity } from '../entities-orm/business.orm-entity';
 import { PaginatedResult } from '../../../common/pagination';
 
 @Injectable()
-export class UserRepositoryImpl implements UserRepository {
-  constructor(@InjectRepository(UserOrmEntity) private repo: Repository<UserOrmEntity>) {}
+export class BusinessRepositoryImpl implements BusinessRepository {
+  constructor(@InjectRepository(BusinessOrmEntity) private repo: Repository<BusinessOrmEntity>) {}
 
-  async findAll(page: number, limit: number): Promise<PaginatedResult<User>> {
+  async findAll(page: number, limit: number): Promise<PaginatedResult<Business>> {
     const [entities, total] = await this.repo.findAndCount({
       skip: (page - 1) * limit,
       take: limit,
     });
   
-    const list = entities.map(e => new User({
+    const list = entities.map(e => new Business({
       id: e.id,
       name: e.name,
       slug: e.slug,
@@ -36,20 +36,20 @@ export class UserRepositoryImpl implements UserRepository {
     };
   }
 
-  async save(user: User): Promise<User> {
-    const userToSave = {
-      id: user.id,
-      name: user.name,
-      slug: user.slug,
-      created_at: user.created_at,
-      is_active: user.is_active,
+  async save(business: Business): Promise<Business> {
+    const businessSettingsToSave = {
+      id: business.id,
+      name: business.name,
+      slug: business.slug,
+      created_at: business.created_at,
+      is_active: business.is_active,
     };
   
-    const entity = this.repo.create(userToSave);
+    const entity = this.repo.create(businessSettingsToSave);
     
     const saved = await this.repo.save(entity);
     
-    return new User({
+    return new Business({
       id: saved.id,
       name: saved.name,
       slug: saved.slug,
@@ -58,9 +58,9 @@ export class UserRepositoryImpl implements UserRepository {
     });
   }
 
-  async findById(id: string): Promise<User | null> {
+  async findById(id: string): Promise<Business | null> {
     const e = await this.repo.findOneBy({ id });
-    return e ? new User({
+    return e ? new Business({
       id: e.id,
       name: e.name,
       slug: e.slug,
@@ -77,11 +77,11 @@ export class UserRepositoryImpl implements UserRepository {
     await this.repo.update(id, { name });
   }
 
-  async update(id: string, user: User): Promise<void> {
-    await this.repo.update(id, user);
+  async update(id: string, business: Business): Promise<void> {
+    await this.repo.update(id, business);
   }
 
-  async findByEmail(slug: string): Promise<boolean> {
+  async findBySlug(slug: string): Promise<boolean> {
     const exists = await this.repo.exists({
       where: {
         slug,

@@ -1,36 +1,36 @@
 import { Controller, Get, Post, Patch, Put, Param, Body, Query, UsePipes, ValidationPipe } from '@nestjs/common';
-import { ListUsersUseCase } from '../../../application/use-cases/list-business.use-case';
-import { CreateUserUseCase } from '../../../application/use-cases/create-business.use-case';
-import { ChangeUserStatusUseCase } from '../../../application/use-cases/change-business-status.use-case';
-import { ChangeUserNameUseCase } from 'src/application/use-cases/change-business-name.use-case';
-import { UpdateUserUseCase } from '../../../application/use-cases/update-business.use-case';
-import { CreateUserDto } from './dto/create-business.dto';
+import { ListBusinessUseCase } from '../../../application/use-cases/list-business.use-case';
+import { CreateBusinessUseCase } from '../../../application/use-cases/create-business.use-case';
+import { ChangeBusinessStatusUseCase } from '../../../application/use-cases/change-business-status.use-case';
+import { ChangeBusinessNameUseCase } from 'src/application/use-cases/change-business-name.use-case';
+import { UpdateBusinessUseCase } from '../../../application/use-cases/update-business.use-case';
+import { CreateBusinessDto } from './dto/create-business.dto';
 import { PaginationDto } from './dto/pagination.dto';
 import { UpdateStatusDto } from './dto/change-business-status.dto';
 import { UpdateNameDto } from './dto/change-business-name.dto';
-import { UpdateUserDto } from './dto/update-business.dto';
+import { UpdateBusinessDto } from './dto/update-business.dto';
 import { IdParamDto } from './dto/id-param.dto';
 
 @Controller('businesses')
-export class UserController {
+export class BusinessController {
   constructor(
-    private readonly listUsers: ListUsersUseCase,
-    private readonly createUser: CreateUserUseCase,
-    private readonly changeUserStatus: ChangeUserStatusUseCase,
-    private readonly changeUserName: ChangeUserNameUseCase,
-    private readonly updateUser: UpdateUserUseCase,
+    private readonly listBusinesses: ListBusinessUseCase,
+    private readonly createBusiness: CreateBusinessUseCase,
+    private readonly changeBusinessStatus: ChangeBusinessStatusUseCase,
+    private readonly changeBusinessName: ChangeBusinessNameUseCase,
+    private readonly updateBusiness: UpdateBusinessUseCase,
   ) {}
 
   @Get()
   @UsePipes(new ValidationPipe({ transform: true })) 
   async getAll(@Query() pagination: PaginationDto) {
     const { page = 1, limit = 10 } = pagination;
-    return await this.listUsers.execute(page, limit);
+    return await this.listBusinesses.execute(page, limit);
   }
 
   @Post()
-  async create(@Body() body: CreateUserDto) {
-    return await this.createUser.execute(body);
+  async create(@Body() body: CreateBusinessDto) {
+    return await this.createBusiness.execute(body);
   }
 
   @Patch(':id/status')
@@ -39,7 +39,7 @@ export class UserController {
     @Param('id') id: string,
     @Body() updateStatusDto: UpdateStatusDto
   ) {
-    return await this.changeUserStatus.execute(id, updateStatusDto.status);
+    return await this.changeBusinessStatus.execute(id, updateStatusDto.status);
   }
 
   @Patch(':id/name')
@@ -48,14 +48,14 @@ export class UserController {
     @Param('id') id: string,
     @Body() updateNameDto: UpdateNameDto
   ) {
-    return await this.changeUserName.execute(id, updateNameDto.name);
+    return await this.changeBusinessName.execute(id, updateNameDto.name);
   }
 
   @Put(':id')
   async update(
     @Param() params: IdParamDto,
-    @Body() body: UpdateUserDto
+    @Body() body: UpdateBusinessDto
   ) {
-    return await this.updateUser.execute(body, params.id);
+    return await this.updateBusiness.execute(body, params.id);
   }
 }

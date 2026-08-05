@@ -1,11 +1,7 @@
 import { IsString, IsNotEmpty} from 'class-validator';
 
-export class UpdateBusinessDto {
+export class UpdateBusinessSettingsDto {
   @IsString()
   @IsNotEmpty()
   name: string;
-
-  @IsString()
-  @IsNotEmpty()
-  slug: string;
 }
