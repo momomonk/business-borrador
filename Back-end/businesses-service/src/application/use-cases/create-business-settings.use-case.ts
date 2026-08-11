@@ -9,10 +9,9 @@ export class CreateBusinessSettingsUseCase {
   constructor(@Inject('BusinessSettingsRepository') private readonly repo: BusinessSettingsRepository) {}
 
   async execute(dto: CreateBusinessSettingsDto) {
-    const businessSettingsAvailable = await this.repo.findById(dto.businessSettingsId);
-    if(businessSettingsAvailable) throw new BadRequestException(ErrorMessages.BUSINESS_SETTINGS_NOT_FOUND);
     const newBusinessSettings = new BusinessSettings({
-      businessSettingsId: dto.businessSettingsId,
+      themeConfig: dto.themeConfig,
+      domainSettings: dto.domainSettings,
     });
 
     return await this.repo.save(newBusinessSettings);

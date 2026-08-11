@@ -16,6 +16,9 @@ import { BusinessSettingsRepositoryImpl } from './infrastructure/persistence/rep
 import { BusinessOrmEntity } from './infrastructure/persistence/entities-orm/business.orm-entity';
 import { BusinessSettingsOrmEntity } from './infrastructure/persistence/entities-orm/business-settings.orm-entity';
 import { LoggerMiddleware } from './common/middleware/logger.middleware';
+import { ChangeBusinessSettingsThemeConfigUseCase } from './application/use-cases/change-business-settings-theme-config.use-case';
+import { ChangeBusinessSettingsDomainSettingsUseCase } from './application/use-cases/change-business-settings-domain-settings.use-case';
+import { ChangeBusinessSlugUseCase } from './application/use-cases/change-business-slug.use-case';
 
 @Module({
   imports: [
@@ -29,10 +32,13 @@ import { LoggerMiddleware } from './common/middleware/logger.middleware';
     UpdateBusinessUseCase,
     ChangeBusinessNameUseCase,
     ChangeBusinessStatusUseCase,
+    ChangeBusinessSlugUseCase,
     { provide: 'BusinessRepository', useClass: BusinessRepositoryImpl },
     ListBusinessSettingsUseCase,
     CreateBusinessSettingsUseCase,
     UpdateBusinessSettingsUseCase,
+    ChangeBusinessSettingsDomainSettingsUseCase,
+    ChangeBusinessSettingsThemeConfigUseCase,
     { provide: 'BusinessSettingsRepository', useClass: BusinessSettingsRepositoryImpl },
   ],
 })

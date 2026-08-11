@@ -18,6 +18,7 @@ export class UpdateBusinessUseCase {
     const updateBusiness = new Business({
       name: dto.name,
       slug: dto.slug,
+      isActive: dto.isActive,
     });
 
     return await this.repo.update(id, updateBusiness);

@@ -7,5 +7,5 @@ export interface BusinessSettingsRepository {
   findById(businessSettingsId: string): Promise<BusinessSettings | null>;
   update(businessSettingsId: string, business: BusinessSettings): Promise<void>;
   updateThemeConfig(businessSettingsId: string, themeConfig: any): Promise<void>;
-  updatedomainSettings(businessSettingsId: string, domainSettings: any): Promise<void>;
+  updateDomainSettings(businessSettingsId: string, domainSettings: any): Promise<void>;
 }

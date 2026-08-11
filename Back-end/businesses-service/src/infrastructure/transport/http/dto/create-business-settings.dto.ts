@@ -1,7 +1,11 @@
-import { IsString, IsNotEmpty} from 'class-validator';
+import { IsObject, IsNotEmpty } from 'class-validator';
 
 export class CreateBusinessSettingsDto {
-  @IsString()
+  @IsObject()
   @IsNotEmpty()
-  businessSettingsId: string;
+  themeConfig: Record<string, any>;
+
+  @IsObject()
+  @IsNotEmpty()
+  domainSettings: Record<string, any>;
 }

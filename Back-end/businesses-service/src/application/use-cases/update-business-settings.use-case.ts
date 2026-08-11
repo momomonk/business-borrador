@@ -7,16 +7,13 @@ import { ErrorMessages } from '../../common/constants/error-messages';
 @Injectable()
 export class UpdateBusinessSettingsUseCase {
   constructor(@Inject('BusinessSettingsRepository') private readonly repo: BusinessSettingsRepository) {}
-
-  async execute(dto: UpdateBusinessSettingsDto, id: string) {
+  async execute(id: string, dto: UpdateBusinessSettingsDto) {
     const businessAvailable = await this.repo.findById(id);
     if(!businessAvailable) throw new BadRequestException(ErrorMessages.BUSINESS_NOT_FOUND);
 
-    const slugAvailable = await this.repo.findById(dto.name);
-    if(slugAvailable) throw new BadRequestException(ErrorMessages.SLUG_EXISTS);
-
     const updateBusinessSettings = new BusinessSettings({
-      businessSettingsId: dto.name,
+      themeConfig: dto.themeConfig,
+      domainSettings: dto.domainSettings,
     });
 
     return await this.repo.update(id, updateBusinessSettings);

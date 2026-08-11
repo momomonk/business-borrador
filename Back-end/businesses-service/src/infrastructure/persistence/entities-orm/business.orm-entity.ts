@@ -2,9 +2,9 @@ import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn } from 'typeor
 
 @Entity('businesses')
 export class BusinessOrmEntity {
-  @PrimaryGeneratedColumn('uuid') id: string;
-  @Column() name: string;
-  @Column() slug: string;
-  @CreateDateColumn({ type: 'timestamp' }) created_at: Date;
-  @Column({ default: true }) is_active: boolean;
+  @PrimaryGeneratedColumn('uuid', { name: 'id' }) id: string;
+  @Column({name: 'is_active', default: true }) isActive: boolean;
+  @CreateDateColumn({ type: 'timestamp', name: 'created_at' }) createdAt: Date;
+  @Column({name: 'name'}) name: string;
+  @Column({name: 'slug'}) slug: string;
 }

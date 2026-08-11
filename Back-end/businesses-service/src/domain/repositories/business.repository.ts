@@ -7,6 +7,7 @@ export interface BusinessRepository {
   findById(id: string): Promise<Business | null>;
   updateStatus(id: string, status: boolean): Promise<void>;
   updateName(id: string, name: string): Promise<void>;
+  updateSlug(id: string, slug: string): Promise<void>;
   findBySlug(slug: string): Promise<boolean>;
   update(id: string, business: Business): Promise<void>;
 }

@@ -20,8 +20,8 @@ export class BusinessRepositoryImpl implements BusinessRepository {
       id: e.id,
       name: e.name,
       slug: e.slug,
-      created_at: e.created_at,
-      is_active: e.is_active,
+      createdAt: e.createdAt,
+      isActive: e.isActive,
     }));
   
     return {
@@ -41,8 +41,8 @@ export class BusinessRepositoryImpl implements BusinessRepository {
       id: business.id,
       name: business.name,
       slug: business.slug,
-      created_at: business.created_at,
-      is_active: business.is_active,
+      createdAt: business.createdAt,
+      isActive: business.isActive,
     };
   
     const entity = this.repo.create(businessSettingsToSave);
@@ -53,8 +53,8 @@ export class BusinessRepositoryImpl implements BusinessRepository {
       id: saved.id,
       name: saved.name,
       slug: saved.slug,
-      created_at: saved.created_at,
-      is_active: saved.is_active,
+      createdAt: saved.createdAt,
+      isActive: saved.isActive,
     });
   }
 
@@ -64,19 +64,23 @@ export class BusinessRepositoryImpl implements BusinessRepository {
       id: e.id,
       name: e.name,
       slug: e.slug,
-      created_at: e.created_at,
-      is_active: e.is_active,
+      createdAt: e.createdAt,
+      isActive: e.isActive,
     }) : null;
   }
 
   async updateStatus(id: string, status: boolean): Promise<void> {
-    await this.repo.update(id, { is_active: status });
+    await this.repo.update(id, { isActive: status });
   }
 
   async updateName(id: string, name: string): Promise<void> {
     await this.repo.update(id, { name });
   }
 
+  async updateSlug(id: string, slug: string): Promise<void> {
+    await this.repo.update(id, { slug });
+  }
+  
   async update(id: string, business: Business): Promise<void> {
     await this.repo.update(id, business);
   }

@@ -69,10 +69,10 @@ export class BusinessSettingsRepositoryImpl implements BusinessSettingsRepositor
     await this.repo.update({ businessSettingsId }, { themeConfig });
   }
 
-  async updatedomainSettings(businessSettingsId: string, domainSettings: any): Promise<void> {
+  async updateDomainSettings(businessSettingsId: string, domainSettings: any): Promise<void> {
     await this.repo.update({ businessSettingsId }, { domainSettings });
   }
-
+  
   async update(businessSettingsId: string, business: BusinessSettings): Promise<void> {
     await this.repo.update({ businessSettingsId }, business);
   }

@@ -2,7 +2,7 @@ import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn } from 'typeor
 
 @Entity('businesses_settings')
 export class BusinessSettingsOrmEntity {
-  @Column('uuid', {name: 'business_settings_id'}) businessSettingsId: string;
+  @PrimaryGeneratedColumn('uuid', {name: 'business_settings_id'}) businessSettingsId: string;
   @Column({ name: 'theme_config', type: 'jsonb', nullable: true })
     themeConfig: Record<string, any>;
   @Column({ name: 'domain_settings', type: 'jsonb', nullable: true })
