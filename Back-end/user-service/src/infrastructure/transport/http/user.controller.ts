@@ -1,17 +1,23 @@
-import { Controller, Get, Post, Patch, Param, Body, Query, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Controller, Get, Post, Patch, Put, Param, Body, Query, UsePipes, UseGuards, ValidationPipe } from '@nestjs/common';
 import { ListUsersUseCase } from '../../../application/use-cases/list-users.use-case';
 import { CreateUserUseCase } from '../../../application/use-cases/create-user.use-case';
 import { ChangeUserStatusUseCase } from '../../../application/use-cases/change-user-status.use-case';
+import { UpdateUserUseCase } from '../../../application/use-cases/update-user.use-case';
 import { CreateUserDto } from './dto/create-user.dto';
 import { PaginationDto } from './dto/pagination.dto';
 import { UpdateStatusDto } from './dto/change-user-status.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
+import { IdParamDto } from './dto/id-param.dto';
+import { AuthApiGuard } from '../../../common/guards/auth-api.guards';
 
+@UseGuards(AuthApiGuard)
 @Controller('users')
 export class UserController {
   constructor(
     private readonly listUsers: ListUsersUseCase,
     private readonly createUser: CreateUserUseCase,
     private readonly changeUserStatus: ChangeUserStatusUseCase,
+    private readonly updateUser: UpdateUserUseCase,
   ) {}
 
   @Get()
@@ -33,5 +39,12 @@ export class UserController {
     @Body() updateStatusDto: UpdateStatusDto
   ) {
     return await this.changeUserStatus.execute(id, updateStatusDto.status);
+  }
+  @Put(':id')
+  async update(
+    @Param() params: IdParamDto,
+    @Body() body: UpdateUserDto
+  ) {
+    return await this.updateUser.execute(body, params.id);
   }
 }

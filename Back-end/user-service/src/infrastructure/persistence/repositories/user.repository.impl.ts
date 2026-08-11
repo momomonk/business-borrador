@@ -76,6 +76,10 @@ export class UserRepositoryImpl implements UserRepository {
     await this.repo.update(id, { active: status });
   }
 
+  async update(id: string, user: User): Promise<void> {
+    await this.repo.update(id, user);
+  }
+
   async findByEmail(email: string): Promise<boolean> {
     const exists = await this.repo.exists({
       where: {
