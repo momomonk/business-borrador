@@ -5,6 +5,9 @@ export interface BusinessSettingsRepository {
   findAll(page: number, limit: number): Promise<PaginatedResult<BusinessSettings>>;
   save(user: BusinessSettings): Promise<BusinessSettings>;
   findById(id: string): Promise<BusinessSettings | null>;
-  updateQuantity(id: string, quantity: number): Promise<void>;
+  changeOrderId(id: string, orderId: string): Promise<void>;
+  changeProductId(id: string, productId: string): Promise<void>;
+  changeQuantity(id: string, quantity: number): Promise<void>;
+  changePriceAtPurchase(id: string, priceAtPurchase: number): Promise<void>;
   update(id: string, business: BusinessSettings): Promise<void>;
 }

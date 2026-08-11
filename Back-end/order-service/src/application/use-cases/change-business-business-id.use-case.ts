@@ -3,13 +3,13 @@ import { BusinessRepository } from '../../domain/repositories/business.repositor
 import { ErrorMessages } from '../../common/constants/error-messages';
 
 @Injectable()
-export class ChangeBusinessStatusUseCase {
+export class ChangeBusinessBusinessIdUseCase {
   constructor(@Inject('BusinessRepository') private readonly repo: BusinessRepository) {}
 
-  async execute(id: string, status: boolean) {
+  async execute(id: string, businessId: string) {
     const business = await this.repo.findById(id);
     if (!business) throw new NotFoundException(ErrorMessages.BUSINESS_NOT_FOUND);
 
-    await this.repo.changeStatus(id, status);
+    await this.repo.changeBusinessId(id, businessId);
   }
 }

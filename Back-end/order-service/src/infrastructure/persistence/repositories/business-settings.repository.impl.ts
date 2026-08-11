@@ -18,10 +18,10 @@ export class BusinessSettingsRepositoryImpl implements BusinessSettingsRepositor
   
     const list = entities.map(e => new BusinessSettings({
       id: e.id,
-      order_id: e.order_id,
-      product_id: e.product_id,
+      orderId: e.orderId,
+      productId: e.productId,
       quantity: e.quantity,
-      price_at_purchase: e.price_at_purchase,
+      priceAtPurchase: e.priceAtPurchase,
     }));
   
     return {
@@ -39,10 +39,10 @@ export class BusinessSettingsRepositoryImpl implements BusinessSettingsRepositor
   async save(businessSettings: BusinessSettings): Promise<BusinessSettings> {
     const businessSettingsToSave = {
       id: businessSettings.id,
-      order_id: businessSettings.order_id,
-      product_id: businessSettings.product_id,
+      orderId: businessSettings.orderId,
+      productId: businessSettings.productId,
       quantity: businessSettings.quantity,
-      price_at_purchase: businessSettings.price_at_purchase,
+      priceAtPurchase: businessSettings.priceAtPurchase,
     };
   
     const entity = this.repo.create(businessSettingsToSave);
@@ -52,10 +52,10 @@ export class BusinessSettingsRepositoryImpl implements BusinessSettingsRepositor
     return new BusinessSettings({
 
       id: saved.id,
-      order_id: saved.order_id,
-      product_id: saved.product_id,
+      orderId: saved.orderId,
+      productId: saved.productId,
       quantity: saved.quantity,
-      price_at_purchase: saved.price_at_purchase,
+      priceAtPurchase: saved.priceAtPurchase,
     });
   }
 
@@ -63,15 +63,24 @@ export class BusinessSettingsRepositoryImpl implements BusinessSettingsRepositor
     const e = await this.repo.findOneBy({ id });
     return e ? new BusinessSettings({
       id: e.id,
-      order_id: e.order_id,
-      product_id: e.product_id,
+      orderId: e.orderId,
+      productId: e.productId,
       quantity: e.quantity,
-      price_at_purchase: e.price_at_purchase,
+      priceAtPurchase: e.priceAtPurchase,
     }) : null;
   }
 
-  async updateQuantity(id: string, quantity: number): Promise<void> {
+  async changeOrderId(id: string, orderId: string): Promise<void> {
+    await this.repo.update({ id }, { orderId });
+  }
+  async changeProductId(id: string, productId: string): Promise<void> {
+    await this.repo.update({ id }, { productId });
+  }
+  async changeQuantity(id: string, quantity: number): Promise<void> {
     await this.repo.update({ id }, { quantity });
+  }
+  async changePriceAtPurchase(id: string, priceAtPurchase: number): Promise<void> {
+    await this.repo.update({ id }, { priceAtPurchase });
   }
 
   async update(id: string, business: BusinessSettings): Promise<void> {

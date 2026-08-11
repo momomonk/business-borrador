@@ -10,6 +10,6 @@ export class ChangeBusinessTotalAmountUseCase {
     const business = await this.repo.findById(id);
     if (!business) throw new NotFoundException(ErrorMessages.BUSINESS_NOT_FOUND);
 
-    await this.repo.updateTotalAmount(id, totalAmount);
+    await this.repo.changeTotalAmount(id, totalAmount);
   }
 }

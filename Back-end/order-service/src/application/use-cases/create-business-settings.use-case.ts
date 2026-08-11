@@ -9,10 +9,11 @@ export class CreateBusinessSettingsUseCase {
   constructor(@Inject('BusinessSettingsRepository') private readonly repo: BusinessSettingsRepository) {}
 
   async execute(dto: CreateBusinessSettingsDto) {
-    const businessSettingsAvailable = await this.repo.findById(dto.id);
-    if(businessSettingsAvailable) throw new BadRequestException(ErrorMessages.PRODUCT_NOT_FOUND);
     const newBusinessSettings = new BusinessSettings({
-      id: dto.id,
+      orderId: dto.orderId,
+      quantity: dto.quantity,
+      productId: dto.productId,
+      priceAtPurchase: dto.priceAtPurchase
     });
 
     return await this.repo.save(newBusinessSettings);

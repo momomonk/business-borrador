@@ -3,9 +3,9 @@ import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn } from 'typeor
 @Entity('orders')
 export class BusinessOrmEntity {
   @PrimaryGeneratedColumn('uuid', {name: 'id'}) id: string;
-  @Column('uuid', {name: 'business_id'}) business_id: string;
-  @Column('uuid', {name: 'customer_id'}) customer_id: string;
-  @Column() total_amount: number;
+  @Column('uuid', {name: 'business_id'}) businessId: string;
+  @Column('uuid', {name: 'customer_id'}) customerId: string;
+  @CreateDateColumn({name: 'created_at', type: 'timestamp' }) createdAt: Date;
+  @Column({ name: 'total_amount', type: 'numeric', precision: 12, scale: 2 }) totalAmount: number;
   @Column() status: boolean;
-  @CreateDateColumn({name: 'created_at', type: 'timestamp' }) created_at: Date;
 }

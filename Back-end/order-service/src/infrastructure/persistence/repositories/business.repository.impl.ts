@@ -18,11 +18,11 @@ export class BusinessRepositoryImpl implements BusinessRepository {
   
     const list = entities.map(e => new Business({
       id: e.id,
-      business_id: e.business_id,
-      customer_id: e.customer_id,
-      total_amount: e.total_amount,
+      businessId: e.businessId,
+      customerId: e.customerId,
+      totalAmount: e.totalAmount,
       status: e.status,
-      created_at: e.created_at, 
+      createdAt: e.createdAt, 
     }));
   
     return {
@@ -40,11 +40,11 @@ export class BusinessRepositoryImpl implements BusinessRepository {
   async save(business: Business): Promise<Business> {
     const businessSettingsToSave = {
       id: business.id,
-      business_id: business.business_id,
-      customer_id: business.customer_id,
-      total_amount: business.total_amount,
+      businessId: business.businessId,
+      customerId: business.customerId,
+      totalAmount: business.totalAmount,
       status: business.status,
-      created_at: business.created_at, 
+      createdAt: business.createdAt, 
     };
   
     const entity = this.repo.create(businessSettingsToSave);
@@ -53,11 +53,11 @@ export class BusinessRepositoryImpl implements BusinessRepository {
     
     return new Business({
       id: saved.id,
-      business_id: saved.business_id,
-      customer_id: saved.customer_id,
-      total_amount: saved.total_amount,
+      businessId: saved.businessId,
+      customerId: saved.customerId,
+      totalAmount: saved.totalAmount,
       status: saved.status,
-      created_at: saved.created_at, 
+      createdAt: saved.createdAt, 
     });
   }
 
@@ -65,20 +65,26 @@ export class BusinessRepositoryImpl implements BusinessRepository {
     const e = await this.repo.findOneBy({ id });
     return e ? new Business({
       id: e.id,
-      business_id: e.business_id,
-      customer_id: e.customer_id,
-      total_amount: e.total_amount,
+      businessId: e.businessId,
+      customerId: e.customerId,
+      totalAmount: e.totalAmount,
       status: e.status,
-      created_at: e.created_at, 
+      createdAt: e.createdAt, 
     }) : null;
   }
 
-  async updateStatus(id: string, status: boolean): Promise<void> {
-    await this.repo.update(id, { status:status });
+  async changeBusinessId(id: string, businessId: string): Promise<void> {
+    await this.repo.update(id, { businessId: businessId });
+  }
+  async changeCustomerId(id: string, customerId: string): Promise<void> {
+    await this.repo.update(id, { customerId: customerId });
+  }
+  async changeTotalAmount(id: string, totalAmount: number): Promise<void> {
+    await this.repo.update(id, { totalAmount: totalAmount });
   }
 
-  async updateTotalAmount(id: string, totalAmount: number): Promise<void> {
-    await this.repo.update(id, { total_amount: totalAmount });
+  async changeStatus(id: string, status: boolean): Promise<void> {
+    await this.repo.update(id, { status:status });
   }
 
   async update(id: string, business: Business): Promise<void> {

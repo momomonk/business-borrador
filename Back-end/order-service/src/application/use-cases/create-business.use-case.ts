@@ -9,10 +9,11 @@ export class CreateBusinessUseCase {
   constructor(@Inject('BusinessRepository') private readonly repo: BusinessRepository) {}
 
   async execute(dto: CreateBusinessDto) {
-    const businessAvailable = await this.repo.findById(dto.id);
-    if(businessAvailable) throw new BadRequestException(ErrorMessages.CATEGORY_NOT_FOUND);
     const newBusiness = new Business({
-      id: dto.id,
+      businessId: dto.businessId,
+      customerId: dto.customerId,
+      totalAmount: dto.totalAmount,
+      status: dto.status
     });
 
     return await this.repo.save(newBusiness);

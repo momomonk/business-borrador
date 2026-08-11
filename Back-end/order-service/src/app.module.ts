@@ -17,6 +17,11 @@ import { BusinessSettingsRepositoryImpl } from './infrastructure/persistence/rep
 import { BusinessOrmEntity } from './infrastructure/persistence/entities-orm/business.orm-entity';
 import { BusinessSettingsOrmEntity } from './infrastructure/persistence/entities-orm/business-settings.orm-entity';
 import { LoggerMiddleware } from './common/middleware/logger.middleware';
+import { ChangeBusinessCustomerIdUseCase } from './application/use-cases/change-business-customer-id.use-case';
+import { ChangeBusinessBusinessIdUseCase } from './application/use-cases/change-business-business-id.use-case';
+import { ChangeBusinessSettingsOrderIdUseCase } from './application/use-cases/change-business-settings-order-id.use-case';
+import { ChangeBusinessSettingsPriceAtPurchaseUseCase } from './application/use-cases/change-business-settings-price-at-purchase.use-case';
+import { ChangeBusinessSettingsProductIdUseCase } from './application/use-cases/change-business-settings-product-id.use-case';
 
 @Module({
   imports: [
@@ -28,13 +33,18 @@ import { LoggerMiddleware } from './common/middleware/logger.middleware';
     ListBusinessUseCase,
     CreateBusinessUseCase,
     UpdateBusinessUseCase,
-    ChangeBusinessStatusUseCase,
+    ChangeBusinessBusinessIdUseCase,
+    ChangeBusinessCustomerIdUseCase,
     ChangeBusinessTotalAmountUseCase,
+    ChangeBusinessStatusUseCase,
     { provide: 'BusinessRepository', useClass: BusinessRepositoryImpl },
     ListBusinessSettingsUseCase,
     CreateBusinessSettingsUseCase,
     UpdateBusinessSettingsUseCase,
+    ChangeBusinessSettingsOrderIdUseCase,
+    ChangeBusinessSettingsProductIdUseCase,
     ChangeBusinessSettingsQuantityUseCase,
+    ChangeBusinessSettingsPriceAtPurchaseUseCase,
     { provide: 'BusinessSettingsRepository', useClass: BusinessSettingsRepositoryImpl },
   ],
 })

@@ -13,7 +13,10 @@ export class UpdateBusinessSettingsUseCase {
     if(!businessAvailable) throw new BadRequestException(ErrorMessages.BUSINESS_NOT_FOUND);
 
     const updateBusinessSettings = new BusinessSettings({
-      id: dto.id,
+      orderId: dto.orderId,
+      productId: dto.productId,
+      quantity: dto.quantity,
+      priceAtPurchase: dto.priceAtPurchase
     });
 
     return await this.repo.update(id, updateBusinessSettings);
