@@ -16,6 +16,15 @@ import { BusinessSettingsRepositoryImpl } from './infrastructure/persistence/rep
 import { BusinessOrmEntity } from './infrastructure/persistence/entities-orm/business.orm-entity';
 import { BusinessSettingsOrmEntity } from './infrastructure/persistence/entities-orm/business-settings.orm-entity';
 import { LoggerMiddleware } from './common/middleware/logger.middleware';
+import { ChangeBusinessAttributesUseCase } from './application/use-cases/change-business-attributes.use-case';
+import { ChangeBusinessBusinessIdUseCase } from './application/use-cases/change-business-business-id.use-case';
+import { ChangeBusinessCategoryIdUseCase } from './application/use-cases/change-business-category-id.use-case';
+import { ChangeBusinessStockUseCase } from './application/use-cases/change-business-stock.use-case';
+import { ChangeBusinessDescriptionUseCase } from './application/use-cases/change-business-description.use-case';
+import { ChangeBusinessPriceUseCase } from './application/use-cases/change-business-price.use-case';
+import { ChangeBusinessSettingsBusinessIdUseCase } from './application/use-cases/change-business-settings-business-id.use-case';
+import { ChangeBusinessSettingsParentIdUseCase } from './application/use-cases/change-business-settings-parent-id.use-case';
+
 
 @Module({
   imports: [
@@ -27,12 +36,20 @@ import { LoggerMiddleware } from './common/middleware/logger.middleware';
     ListBusinessUseCase,
     CreateBusinessUseCase,
     UpdateBusinessUseCase,
+    ChangeBusinessBusinessIdUseCase,
+    ChangeBusinessCategoryIdUseCase,
+    ChangeBusinessStockUseCase,
+    ChangeBusinessAttributesUseCase,
     ChangeBusinessNameUseCase,
+    ChangeBusinessDescriptionUseCase,
+    ChangeBusinessPriceUseCase,
     { provide: 'BusinessRepository', useClass: BusinessRepositoryImpl },
     ListBusinessSettingsUseCase,
     CreateBusinessSettingsUseCase,
     UpdateBusinessSettingsUseCase,
     ChangeBusinessSettingsNameUseCase,
+    ChangeBusinessSettingsBusinessIdUseCase,
+    ChangeBusinessSettingsParentIdUseCase,
     { provide: 'BusinessSettingsRepository', useClass: BusinessSettingsRepositoryImpl },
   ],
 })

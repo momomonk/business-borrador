@@ -16,7 +16,9 @@ export class UpdateBusinessSettingsUseCase {
     if(slugAvailable) throw new BadRequestException(ErrorMessages.SLUG_EXISTS);
 
     const updateBusinessSettings = new BusinessSettings({
+      businessId: dto.businessId,
       name: dto.name,
+      parentId: dto.parentId,
     });
 
     return await this.repo.update(id, updateBusinessSettings);

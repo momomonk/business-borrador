@@ -18,14 +18,14 @@ export class BusinessRepositoryImpl implements BusinessRepository {
   
     const list = entities.map(e => new Business({
       id: e.id,
-      business_id: e.business_id,
-      category_id: e.category_id,
+      businessId: e.businessId,
+      categoryId: e.categoryId,
       name: e.name,
       description: e.description,
       price: e.price,
       stock: e.stock,
       attributes: e.attributes,
-      created_at: e.created_at, 
+      createdAt: e.createdAt, 
     }));
   
     return {
@@ -43,14 +43,14 @@ export class BusinessRepositoryImpl implements BusinessRepository {
   async save(business: Business): Promise<Business> {
     const businessSettingsToSave = {
       id: business.id,
-      business_id: business.business_id,
-      category_id: business.category_id,
+      businessId: business.businessId,
+      categoryId: business.categoryId,
       name: business.name,
       description: business.description,
       price: business.price,
       stock: business.stock,
       attributes: business.attributes,
-      created_at: business.created_at, 
+      createdAt: business.createdAt, 
     };
   
     const entity = this.repo.create(businessSettingsToSave);
@@ -59,14 +59,14 @@ export class BusinessRepositoryImpl implements BusinessRepository {
     
     return new Business({
       id: saved.id,
-      business_id: saved.business_id,
-      category_id: saved.category_id,
+      businessId: saved.businessId,
+      categoryId: saved.categoryId,
       name: saved.name,
       description: saved.description,
       price: saved.price,
       stock: saved.stock,
       attributes: saved.attributes,
-      created_at: saved.created_at, 
+      createdAt: saved.createdAt, 
     });
   }
 
@@ -74,19 +74,37 @@ export class BusinessRepositoryImpl implements BusinessRepository {
     const e = await this.repo.findOneBy({ id });
     return e ? new Business({
       id: e.id,
-      business_id: e.business_id,
-      category_id: e.category_id,
+      businessId: e.businessId,
+      categoryId: e.categoryId,
       name: e.name,
       description: e.description,
       price: e.price,
       stock: e.stock,
       attributes: e.attributes,
-      created_at: e.created_at, 
+      createdAt: e.createdAt, 
     }) : null;
   }
 
+  async updateBusinessId(id: string, businessId: string): Promise<void> {
+    await this.repo.update(id, { businessId });
+  }
+  async updateCategoryId(id: string, categoryId: string): Promise<void> {
+    await this.repo.update(id, { categoryId });
+  }
+  async updateStock(id: string, stock: number): Promise<void> {
+    await this.repo.update(id, { stock });
+  }
+  async updateAttributes(id: string, attributes: Record<string, any>): Promise<void> {
+    await this.repo.update(id, { attributes });
+  }
   async updateName(id: string, name: string): Promise<void> {
     await this.repo.update(id, { name });
+  }
+  async updateDescription(id: string, description: string): Promise<void> {
+    await this.repo.update(id, { description });
+  }
+  async updatePrice(id: string, price: number): Promise<void> {
+    await this.repo.update(id, { price });
   }
 
   async update(id: string, business: Business): Promise<void> {

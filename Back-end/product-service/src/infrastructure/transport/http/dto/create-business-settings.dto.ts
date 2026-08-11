@@ -1,7 +1,15 @@
-import { IsString, IsNotEmpty} from 'class-validator';
+import { IsString, IsNotEmpty, IsDate} from 'class-validator';
 
 export class CreateBusinessSettingsDto {
   @IsString()
   @IsNotEmpty()
-  id: string;
+  businessId: string;
+
+  @IsString()
+  @IsNotEmpty()
+  name: string;
+
+  @IsString()
+  @IsNotEmpty()
+  parentId: string;
 }

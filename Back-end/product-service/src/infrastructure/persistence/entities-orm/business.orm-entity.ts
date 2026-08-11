@@ -4,13 +4,13 @@ import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn } from 'typeor
 export class BusinessOrmEntity {
  
   @PrimaryGeneratedColumn('uuid', {name: 'id'}) id: string;
-  @Column('uuid', {name: 'business_id'}) business_id: string;
-  @Column('uuid', {name: 'category_id'}) category_id: string;
-  @Column() name: string;
-  @Column() description: string;
-  @Column() price: number;
+  @Column('uuid', {name: 'business_id'}) businessId: string;
+  @Column('uuid', {name: 'category_id'}) categoryId: string;
   @Column() stock: number;
   @Column({ name: 'attributes', type: 'jsonb', nullable: true })
     attributes: Record<string, any>;
-  @CreateDateColumn({name: 'created_at', type: 'timestamp' }) created_at: Date;
+  @CreateDateColumn({name: 'created_at', type: 'timestamp' }) createdAt: Date;
+  @Column() name: string;
+  @Column() description: string;
+  @Column({ name: 'price', type: 'numeric', precision: 12, scale: 2 }) price: number;
 }

@@ -18,10 +18,10 @@ export class BusinessSettingsRepositoryImpl implements BusinessSettingsRepositor
   
     const list = entities.map(e => new BusinessSettings({
       id: e.id,
-      business_id: e.business_id,
+      businessId: e.businessId,
       name: e.name, 
-      parent_id: e.parent_id,
-      created_at: e.created_at,
+      parentId: e.parentId,
+      createdAt: e.createdAt,
     }));
   
     return {
@@ -39,10 +39,10 @@ export class BusinessSettingsRepositoryImpl implements BusinessSettingsRepositor
   async save(businessSettings: BusinessSettings): Promise<BusinessSettings> {
     const businessSettingsToSave = {
       id: businessSettings.id,
-      business_id: businessSettings.business_id,
+      businessId: businessSettings.businessId,
       name: businessSettings.name,
-      parent_id: businessSettings.parent_id,
-      created_at: businessSettings.created_at,
+      parentId: businessSettings.parentId,
+      createdAt: businessSettings.createdAt,
     };
   
     const entity = this.repo.create(businessSettingsToSave);
@@ -52,10 +52,10 @@ export class BusinessSettingsRepositoryImpl implements BusinessSettingsRepositor
     return new BusinessSettings({
 
       id: saved.id,
-      business_id: saved.business_id, 
+      businessId: saved.businessId, 
       name: saved.name, 
-      parent_id: saved.parent_id,
-      created_at: saved.created_at, 
+      parentId: saved.parentId,
+      createdAt: saved.createdAt, 
     });
   }
 
@@ -63,15 +63,21 @@ export class BusinessSettingsRepositoryImpl implements BusinessSettingsRepositor
     const e = await this.repo.findOneBy({ id });
     return e ? new BusinessSettings({
       id: e.id,
-      business_id: e.business_id, 
+      businessId: e.businessId, 
       name: e.name, 
-      parent_id: e.parent_id,
-      created_at: e.created_at,
+      parentId: e.parentId,
+      createdAt: e.createdAt,
     }) : null;
   }
 
+  async updateBusinessId(id: string, businessId: string): Promise<void> {
+    await this.repo.update({ id }, { businessId });
+  }
   async updateName(id: string, name: string): Promise<void> {
     await this.repo.update({ id }, { name });
+  }
+  async updateParentId(id: string, parentId: string): Promise<void> {
+    await this.repo.update({ id }, { parentId });
   }
 
   async update(id: string, business: BusinessSettings): Promise<void> {
